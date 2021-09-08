@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.media.ExifInterface
+import androidx.exifinterface.media.ExifInterface
 import java.io.File
 import java.io.FileOutputStream
 
@@ -18,7 +18,7 @@ private val separator = File.separator
 
 private fun cachePath(context: Context) = "${context.cacheDir.path}${separator}compressor$separator"
 
-fun File.compressFormat() = when (extension.toLowerCase()) {
+fun File.compressFormat() = when (extension.lowercase()) {
     "png" -> Bitmap.CompressFormat.PNG
     "webp" -> Bitmap.CompressFormat.WEBP
     else -> Bitmap.CompressFormat.JPEG
@@ -67,7 +67,7 @@ fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeig
 }
 
 fun determineImageRotation(imageFile: File, bitmap: Bitmap): Bitmap {
-    val exif = ExifInterface(imageFile.absolutePath)
+    val exif = ExifInterface(imageFile)
     val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 0)
     val matrix = Matrix()
     when (orientation) {
